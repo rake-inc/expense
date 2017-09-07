@@ -20,10 +20,11 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^login/$', auth_views.login,
+    url(r'^$', views.home_page),
+    url(r'^signup/', views.user_signup, name='signup'),
+    url(r'^login/', auth_views.login,
         {'template_name': 'login.html'}, name='login'),
-    url(r'^logout/$', auth_views.logout,
-        {'next_page': 'logout.html'}, name='logout'),
-    url(r'^signup/$', views.signup, name='signup'),
-    url(r'^profile/', include('accounts.urls'))
+    url(r'^profile/', include('account.urls')),
+    url(r'^api-auth/',
+        include('rest_framework.urls', namespace='rest_framework')),
 ]

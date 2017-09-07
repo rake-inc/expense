@@ -1,22 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .forms import SignUpForm
 
 
-def signup(request):
+def home_page(request):
+    return render(request, 'home_page.html', {})
+
+
+def user_signup(request):
+    form = SignUpForm(request.POST or None)
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        try:
-            if form.is_valid():
-                username = form.cleaned_data.get('username')
-                password = form.cleaned_data.get('password')
-                print(username, password)
-                form.save(commit=True)
-                print(form.data)
-                return redirect('login')
-            else:
-                print(form.data)
-        except Exception as e:
-            print(e)
+        if form.is_valid():
+            form.save(commit=True)
+            return HttpResponseRedirect('/profile/')
+        else:
+            print(form.data, form.errors)
     else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+        return render(request, 'signup.html', {'form': form})

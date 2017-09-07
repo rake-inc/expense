@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>
+    Home
+</title>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h3>
+        Welcome {{user.username}}!
+    </h3>
+    {% if val != 'none' %}
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Category
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+        {% for items in val %}
+        <tr>
+            <td>
+                {{items.category}}
+            </td>
+            <td>
+                {{items.price}}
+            </td>
+            <td>
+                {{items.description}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h3>
+        You have no expense
+    </h3>
+    {% endif %}
+    <p class="text-right">
+        <a href="{% url 'add_expense' %}">
+            <span class="glyphicon glyphicon-plus">
+            </span>
+            Add Expense
+        </a>
+    </p>
+</div>
+{% block add_expense %}
+	{% endblock %}
+{% endblock %}

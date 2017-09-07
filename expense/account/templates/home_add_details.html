@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+{% block title %}
+	<title>Add Expense</title>
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<form method="POST" class="form-horizontal">
+		{% csrf_token %}
+			<div class="col-md-7">				
+				{% bootstrap_form form layout='horizontal' width='sm' %}
+				{% buttons %}
+				<button class ='col-md-offset-6 btn btn-md btn-success' type='submit'>Add</button>
+				{% endbuttons %}
+				<input type="hidden" name="owner" value="{{user.username}}"/>
+			</div>
+		</form>
+	</div>
+{% endblock %}
